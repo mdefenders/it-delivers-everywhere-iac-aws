@@ -8,11 +8,6 @@ variable "vpc_cidr" {
   type        = string
 }
 
-variable "aws_region" {
-  type        = string
-  description = "AWS region"
-}
-
 variable "tags" {
   type        = map(string)
   description = "Tags to apply to resources"
@@ -32,4 +27,8 @@ variable "bastion_instance_type" {
 variable "bastion_ami_id" {
   type        = string
   description = "Optional explicit AMI ID for the bastion host. If null, latest Amazon Linux 2 is used."
+}
+variable "aws_region" {
+  type        = string
+  description = "AWS region"
 }

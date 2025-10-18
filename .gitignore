@@ -1,8 +1,7 @@
-# Ignore Terraform local state & sensitive vars
-*.tfstate
-*.tfstate.*
-.crash
-.terraform/
-.terraform.lock.hcl
+**/.terraform/
+terraform.tfstate
+terraform.tfstate.*
 secrets.auto.tfvars
-
+tmp
+**/.DS_Store
+**/.idea

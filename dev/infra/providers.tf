@@ -3,5 +3,5 @@ terraform {
 }
 
 provider "aws" {
-  region  = data.terraform_remote_state.infra.outputs.aws_region
+  region  = var.aws_region
 }
