@@ -1,0 +1,1 @@
+../commom/shared_providers.tf
