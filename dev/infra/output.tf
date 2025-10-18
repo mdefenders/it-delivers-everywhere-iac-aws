@@ -14,3 +14,6 @@ output "private_subnets" {
   value       = module.vpc.private_subnets
   description = "Private subnets IDs"
 }
+output "bastion_id" {
+  value = module.infra.bastion_id
+}

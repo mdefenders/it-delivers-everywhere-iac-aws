@@ -33,7 +33,7 @@ module "vpc" {
 }
 
 module "infra" {
-  source                = "git::https://github.com/mdefenders/terraform-aws-infra.git?ref=v1.0.0"
+  source                = "git::https://github.com/mdefenders/terraform-aws-infra.git?ref=dev"
   vpc_name              = var.vpc_name
   tags                  = var.tags
   bastion_enabled       = var.bastion_enabled
