@@ -1,6 +1,7 @@
 locals {
 
   vpc_name   = data.terraform_remote_state.infra.outputs.vpc_name
+  bastion_sg = data.terraform_remote_state.infra.outputs.bastion_security_group
 }
 
 module "eks" {
@@ -17,9 +18,18 @@ module "eks" {
   # not for prod:
   deletion_protection    = false
   endpoint_public_access = false
-
+  security_group_additional_rules = {
+    allow_https_from_bastion = {
+      description              = "Allow HTTPS from Bastion"
+      protocol                 = "tcp"
+      from_port                = 443
+      to_port                  = 443
+      type                     = "ingress"
+      source_security_group_id = data.terraform_remote_state.infra.outputs.bastion_security_group
+    }
+  }
   enable_cluster_creator_admin_permissions = true
-  authentication_mode = "API_AND_CONFIG_MAP"
+  authentication_mode                      = "API_AND_CONFIG_MAP"
 
   cloudwatch_log_group_retention_in_days = var.logs_retantion_in_days
 
@@ -69,8 +79,4 @@ module "eks" {
       EOT
     }
   }
-}
-
-output "eks" {
-  value = module.eks
 }
