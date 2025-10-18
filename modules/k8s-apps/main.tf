@@ -7,6 +7,7 @@ resource "helm_release" "argocd" {
   create_namespace = true
   atomic           = true
   timeout          = 600
+  replace          = true # allow reuse of name if a previous failed release metadata exists
 }
 
 resource "helm_release" "appsets" {
