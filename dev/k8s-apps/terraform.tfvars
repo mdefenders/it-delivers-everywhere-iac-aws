@@ -1,4 +1,4 @@
-argocd_chart_version     = "8.2.7"
+argocd_chart_version     = "8.2.5"
 appsets_chart_version    = "0.1.10"
 appset_name              = "it-delivers-everywhere-features"
 github_org               = "mdefenders"
