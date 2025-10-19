@@ -18,6 +18,7 @@
 #   chart            = "argo-appsets"
 #   version          = var.appsets_chart_version
 #   create_namespace = true
+#   timeout          = 600
 #   # Use templatefile so ${var.*} placeholders in values.yaml are interpolated
 #   values = [templatefile("${path.module}/values.yaml", {
 #     var = {
@@ -39,6 +40,7 @@ resource "helm_release" "cluster_autoscaler" {
   chart      = "cluster-autoscaler"
   namespace  = "kube-system"
   version    = var.autoscaler_chart_version
+  timeout          = 600
 
   set = [
     { name = "autoDiscovery.clusterName", value = var.eks_cluster_name },
