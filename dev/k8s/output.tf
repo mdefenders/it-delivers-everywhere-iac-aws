@@ -8,3 +8,8 @@ output "cluster_certificate_authority_data" {
 output "cluster_name" {
   value = module.eks.cluster_name
 }
+
+output "cluster_autoscaler_irsa_role" {
+  description = "IAM Role ARN for Cluster Autoscaler Service Account"
+  value       = module.cluster_autoscaler_irsa_role.arn
+}

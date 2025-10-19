@@ -26,7 +26,19 @@ variable "app_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
 }
+variable "autoscaler_chart_version" {
+  description = "The Helm chart version for Cluster Autoscaler"
+  type        = string
+}
 variable "deploy_appsets" {
   description = "Whether to deploy ArgoCD AppSets"
   type        = bool
+}
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster."
+  type        = string
+}
+variable "autoscaler_role_arn" {
+  description = "The ARN of the IAM role for the Cluster Autoscaler."
+  type        = string
 }

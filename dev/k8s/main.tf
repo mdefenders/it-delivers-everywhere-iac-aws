@@ -1,7 +1,8 @@
 locals {
 
-  vpc_name   = data.terraform_remote_state.infra.outputs.vpc_name
-  bastion_sg = data.terraform_remote_state.infra.outputs.bastion_security_group
+  vpc_name     = data.terraform_remote_state.infra.outputs.vpc_name
+  bastion_sg   = data.terraform_remote_state.infra.outputs.bastion_security_group
+  cluster_name = "${local.vpc_name}-eks"
 }
 
 module "eks" {
@@ -12,7 +13,7 @@ module "eks" {
     enabled = false
   }
 
-  name               = "${local.vpc_name}-eks"
+  name               = local.cluster_name
   kubernetes_version = var.k8s_version
 
   # not for prod:
@@ -25,7 +26,7 @@ module "eks" {
       from_port                = 443
       to_port                  = 443
       type                     = "ingress"
-      source_security_group_id = data.terraform_remote_state.infra.outputs.bastion_security_group
+      source_security_group_id = local.bastion_sg
     }
   }
   enable_cluster_creator_admin_permissions = true
@@ -59,6 +60,12 @@ module "eks" {
       # https://github.com/bryantbiggs/eks-desired-size-hack
       desired_size = var.desired_pool_size
 
+      # Required tags for Cluster Autoscaler
+      tags = {
+        "k8s.io/cluster-autoscaler/enabled"               = "true"
+        "k8s.io/cluster-autoscaler/${local.cluster_name}" = "owned"
+      }
+
       # This is not required - demonstrates how to pass additional configuration
       # Ref https://bottlerocket.dev/en/os/1.19.x/api/settings/
       bootstrap_extra_args = <<-EOT
@@ -80,3 +87,20 @@ module "eks" {
     }
   }
 }
+
+module "cluster_autoscaler_irsa_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
+  version = "~> 6.2.0"
+
+  name                             = "cluster-autoscaler"
+  attach_cluster_autoscaler_policy = true
+  cluster_autoscaler_cluster_names = [module.eks.cluster_name]
+
+  oidc_providers = {
+    ex = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:cluster-autoscaler"]
+    }
+  }
+}
+

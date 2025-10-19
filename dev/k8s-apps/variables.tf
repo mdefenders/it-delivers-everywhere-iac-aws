@@ -26,6 +26,10 @@ variable "app_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
 }
+variable "autoscaler_chart_version" {
+  description = "The Helm chart version for Cluster Autoscaler"
+  type        = string
+}
 variable "deploy_appsets" {
   description = "Whether to deploy ArgoCD AppSets"
   type        = bool
