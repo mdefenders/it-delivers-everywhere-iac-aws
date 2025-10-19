@@ -1,7 +1,0 @@
-**/.terraform/
-terraform.tfstate
-terraform.tfstate.*
-secrets.auto.tfvars
-tmp
-**/.DS_Store
-**/.idea
