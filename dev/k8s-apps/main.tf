@@ -16,4 +16,5 @@ module "k8s_apps" {
   alb_role_arn             = data.terraform_remote_state.k8s.outputs.aws_alb_irsa_role
   vpc_id                   = data.terraform_remote_state.infra.outputs.vpc_id
   ingress_chart_version    = var.ingress_chart_version
+  ingress_public           = var.ingress_public
 }
