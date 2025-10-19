@@ -44,15 +44,10 @@ resource "helm_release" "cluster_autoscaler" {
 
   set = [
     { name = "autoDiscovery.clusterName", value = var.eks_cluster_name },
-    { name = "awsRegion", value = "us-west-2" },
-    { name = "serviceAccount.create", value = "true" },
-    { name = "serviceAccount.name", value = "cluster-autoscaler" }
-  ]
-  set_sensitive = [
-    {
-      name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-      value = var.autoscaler_role_arn
-    }
+    { name = "awsRegion", value = var.aws_region },
+    { name = "rbac.serviceAccount.create", value = "true" },
+    { name = "rbac.serviceAccount.name", value = "cluster-autoscaler" },
+    { name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn", value = var.autoscaler_role_arn }
   ]
 
 }

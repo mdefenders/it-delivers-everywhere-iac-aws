@@ -42,3 +42,7 @@ variable "autoscaler_role_arn" {
   description = "The ARN of the IAM role for the Cluster Autoscaler."
   type        = string
 }
+variable "aws_region" {
+    description = "The AWS region where the EKS cluster is deployed."
+    type        = string
+}

@@ -11,4 +11,5 @@ module "k8s_apps" {
   autoscaler_chart_version = var.autoscaler_chart_version
   eks_cluster_name         = data.terraform_remote_state.k8s.outputs.cluster_name
   autoscaler_role_arn      = data.terraform_remote_state.k8s.outputs.cluster_autoscaler_irsa_role
+  aws_region               = data.terraform_remote_state.infra.outputs.aws_region
 }
