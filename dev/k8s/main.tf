@@ -44,7 +44,7 @@ module "eks" {
       before_compute = true
     }
   }
-
+  tags = data.terraform_remote_state.infra.outputs.tags
   vpc_id     = data.terraform_remote_state.infra.outputs.vpc_id
   subnet_ids = data.terraform_remote_state.infra.outputs.private_subnets
 
