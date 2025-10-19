@@ -34,3 +34,7 @@ variable "deploy_appsets" {
   description = "Whether to deploy ArgoCD AppSets"
   type        = bool
 }
+variable "alb_chart_version" {
+  description = "The Helm chart version for AWS Load Balancer Controller"
+  type        = string
+}

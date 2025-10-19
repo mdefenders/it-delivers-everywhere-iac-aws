@@ -13,3 +13,6 @@ output "cluster_autoscaler_irsa_role" {
   description = "IAM Role ARN for Cluster Autoscaler Service Account"
   value       = module.cluster_autoscaler_irsa_role.arn
 }
+output "aws_alb_irsa_role" {
+  value = module.aws_load_balancer_controller_irsa_role.arn
+}

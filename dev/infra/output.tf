@@ -18,10 +18,10 @@ output "bastion_id" {
   value = module.infra.bastion_id
 }
 output "bastion_security_group" {
-  value = module.infra.bastion_security_group
+  value       = module.infra.bastion_security_group
   description = "Security group ID for the bastion host (null if not created)."
 }
 output "tags" {
-  value = var.tags
+  value       = var.tags
   description = "Deployment tags"
 }

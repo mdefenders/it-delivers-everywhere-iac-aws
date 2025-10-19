@@ -44,7 +44,7 @@ module "eks" {
       before_compute = true
     }
   }
-  tags = data.terraform_remote_state.infra.outputs.tags
+  tags       = data.terraform_remote_state.infra.outputs.tags
   vpc_id     = data.terraform_remote_state.infra.outputs.vpc_id
   subnet_ids = data.terraform_remote_state.infra.outputs.private_subnets
 
@@ -91,6 +91,7 @@ module "eks" {
 module "cluster_autoscaler_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
   version = "~> 6.2.0"
+  tags       = data.terraform_remote_state.infra.outputs.tags
 
   name                             = "cluster-autoscaler"
   attach_cluster_autoscaler_policy = true
@@ -103,4 +104,23 @@ module "cluster_autoscaler_irsa_role" {
     }
   }
 }
+
+# IAM Role for AWS Load Balancer Controller
+module "aws_load_balancer_controller_irsa_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
+  version = "~> 6.2.0"
+  tags       = data.terraform_remote_state.infra.outputs.tags
+
+  name                                   = "aws-load-balancer-controller"
+  attach_load_balancer_controller_policy = true
+  cluster_autoscaler_cluster_names       = [module.eks.cluster_name]
+
+  oidc_providers = {
+    ex = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
+    }
+  }
+}
+
 

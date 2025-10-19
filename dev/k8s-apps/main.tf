@@ -12,4 +12,7 @@ module "k8s_apps" {
   eks_cluster_name         = data.terraform_remote_state.k8s.outputs.cluster_name
   autoscaler_role_arn      = data.terraform_remote_state.k8s.outputs.cluster_autoscaler_irsa_role
   aws_region               = data.terraform_remote_state.infra.outputs.aws_region
+  alb_chart_version        = var.alb_chart_version
+  alb_role_arn             = data.terraform_remote_state.k8s.outputs.aws_alb_irsa_role
+  vpc_id                   = data.terraform_remote_state.infra.outputs.vpc_id
 }
