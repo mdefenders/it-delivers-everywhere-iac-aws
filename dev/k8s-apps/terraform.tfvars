@@ -8,3 +8,4 @@ app_chart_version        = "0.1.*"
 deploy_appsets           = true
 autoscaler_chart_version = "9.52.0"
 alb_chart_version        = "1.14.1"
+ingress_chart_version    = "4.13.3"

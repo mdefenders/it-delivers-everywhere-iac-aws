@@ -38,3 +38,7 @@ variable "alb_chart_version" {
   description = "The Helm chart version for AWS Load Balancer Controller"
   type        = string
 }
+variable "ingress_chart_version" {
+    description = "The Helm chart version for NGINX Ingress Controller"
+    type        = string
+}
