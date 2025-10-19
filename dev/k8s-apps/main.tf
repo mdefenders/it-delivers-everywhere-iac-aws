@@ -1,5 +1,5 @@
 module "k8s_apps" {
-  source                   = "../../modules/k8s-apps"
+  source                   = "git::https://github.com/mdefenders/terraform-aws-k8s-apps.git?ref=dev"
   argocd_chart_version     = var.argocd_chart_version
   appsets_chart_version    = var.appsets_chart_version
   deploy_appsets           = var.deploy_appsets
