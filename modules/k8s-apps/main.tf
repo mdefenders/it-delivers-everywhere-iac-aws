@@ -40,13 +40,19 @@ resource "helm_release" "cluster_autoscaler" {
   chart      = "cluster-autoscaler"
   namespace  = "kube-system"
   version    = var.autoscaler_chart_version
-  timeout          = 600
+  timeout    = 600
 
   set = [
     { name = "autoDiscovery.clusterName", value = var.eks_cluster_name },
     { name = "awsRegion", value = "us-west-2" },
-    { name = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn", value = var.autoscaler_role_arn },
     { name = "serviceAccount.create", value = "true" },
     { name = "serviceAccount.name", value = "cluster-autoscaler" }
   ]
+  set_sensitive = [
+    {
+      name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+      value = var.autoscaler_role_arn
+    }
+  ]
+
 }
