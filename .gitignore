@@ -5,3 +5,4 @@ secrets.auto.tfvars
 tmp
 **/.DS_Store
 **/.idea
+local-modules
