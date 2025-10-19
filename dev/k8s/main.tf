@@ -99,7 +99,7 @@ module "cluster_autoscaler_irsa_role" {
   oidc_providers = {
     ex = {
       provider_arn               = module.eks.oidc_provider_arn
-      namespace_service_accounts = ["kube-system:cluster-autoscaler-aws-cluster-autoscaler"]
+      namespace_service_accounts = ["kube-system:cluster-autoscaler"]
     }
   }
 }
